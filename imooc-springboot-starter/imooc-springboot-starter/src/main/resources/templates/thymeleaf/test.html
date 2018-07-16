@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" />
+    <title>测试thymeleaf常用标签</title>
+    
+	<script th:src="@{/static/js/test.js}"></script>
+    
+</head>
+<body>
+<div>
+   用户姓名：<input th:id="${user.name}" th:name="${user.name}" th:value="${user.name}"/><br/>
+  用户年龄：<input th:id="age" th:name="age" th:value="${user.age}"/><br/>
+  用户生日：<input th:id="birthday" th:name="birthday" th:value="${#dates.format(user.birthday,'yyyy-MM-dd')}"/>
+       <input th:id="birthday" th:name="birthday" th:value="${user.birthday}"/><br/>
+  用户描述：<input th:id="description" th:name="description" th:value="${user.description}"/><br/>
+</div>
+<br/>
+
+<div th:object="${user}" style="border:1px solid black;">
+   用户姓名：<input th:id="*{name}" th:name="*{name}" th:value="*{name}"/><br/>
+  用户年龄：<input th:id="age" th:name="age" th:value="*{age}"/><br/>
+  用户生日：<input th:id="birthday" th:name="birthday" th:value="*{#dates.format(birthday,'yyyy-MM-dd')}"/>
+       <input th:id="birthday" th:name="birthday" th:value="*{birthday}"/><br/>
+  用户描述：<input th:id="description" th:name="description" th:value="*{description}"/><br/>
+</div>
+<br/>
+
+text 与 utext ：<br/>
+<span th:text="${user.description}">abc</span><br/>
+<span th:utext="${user.description}">abc</span><br/><br/>
+
+url:
+<a href="" th:href="@{https://www.baidu.com}">超链接</a>
+<br/><br/>
+
+<form th:action="@{/th/postform}" th:method="post" th:object="${user}">
+  <input type="text" th:field="*{name}"/>
+  <input type="text" th:field="*{age}"/>
+  <input type="submit" value="提交"/>
+</form>
+<br/>
+<br/>
+
+<div th:if="${user.age==18}">哇，你是18岁哦~</div>
+<div th:if="${user.age} gt 18">你成年了哦~</div>
+<div th:if="${user.age} lt 18">哇，你是小鲜肉~</div>
+<div th:if="${user.age} ge 18">你可能是18也可能已经成年了~</div>
+<div th:if="${user.age} lt 18">你可能是18也可能是小鲜肉~</div>
+<br/>
+<br/>
+
+姓名选择：<select>
+<option>选择框</option>
+<option th:selected="${user.name eq 'zhangsan'}">zhangsan</option>
+<option th:selected="${user.name eq 'gaoyan'}">gaoyan</option>
+<option th:selected="${user.name eq 'lisi'}">lisi</option>
+</select>
+<br/>
+<br/>
+
+
+<table>
+    <tr>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>年龄备注</th>
+        <th>生日</th>
+    </tr>
+    <tr th:each="person:${userList}">
+        <td th:text="${person.name}"></td>
+        <td th:text="${person.age}"></td>
+        <td th:text="${person.age gt 18} ? 你老了 : 你很年轻">18岁</td>
+        <td th:text="${#dates.format(user.birthday, 'yyyy-MM-dd hh:mm:ss')}"></td>
+    </tr>
+</table>
+<br/>
+<br/>
+
+
+<div th:switch="${user.name}">
+   <p th:case="'gaoyan'">gaoyan</p>
+   <p th:case="#{roles.manager}">普通管理员</p>
+   <p th:case="#{roles.superadmin}">超级管理员</p>
+   <p th:case="*">其他</p>
+</div>
+</body>
+</html>
