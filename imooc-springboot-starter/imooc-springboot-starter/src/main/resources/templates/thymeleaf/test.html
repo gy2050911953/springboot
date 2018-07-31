@@ -11,8 +11,8 @@
 <div>
    用户姓名：<input th:id="${user.name}" th:name="${user.name}" th:value="${user.name}"/><br/>
   用户年龄：<input th:id="age" th:name="age" th:value="${user.age}"/><br/>
-  用户生日：<input th:id="birthday" th:name="birthday" th:value="${#dates.format(user.birthday,'yyyy-MM-dd')}"/>
-       <input th:id="birthday" th:name="birthday" th:value="${user.birthday}"/><br/>
+  用户生日：<input th:name="birthday" th:value="${#dates.format(user.birthday,'yyyy-MM-dd')}"/>
+       <input th:name="birthday" th:value="${user.birthday}"/><br/>
   用户描述：<input th:id="description" th:name="description" th:value="${user.description}"/><br/>
 </div>
 <br/>
@@ -20,15 +20,15 @@
 <div th:object="${user}" style="border:1px solid black;">
    用户姓名：<input th:id="*{name}" th:name="*{name}" th:value="*{name}"/><br/>
   用户年龄：<input th:id="age" th:name="age" th:value="*{age}"/><br/>
-  用户生日：<input th:id="birthday" th:name="birthday" th:value="*{#dates.format(birthday,'yyyy-MM-dd')}"/>
-       <input th:id="birthday" th:name="birthday" th:value="*{birthday}"/><br/>
+  用户生日：<input th:name="birthday" th:value="*{#dates.format(birthday,'yyyy-MM-dd')}"/>
+       <input th:name="birthday" th:value="*{birthday}"/><br/>
   用户描述：<input th:id="description" th:name="description" th:value="*{description}"/><br/>
 </div>
 <br/>
 
 text 与 utext ：<br/>
-<span th:text="${user.description}">abc</span><br/>
-<span th:utext="${user.description}">abc</span><br/><br/>
+<span th:text="${user.description}"></span><br/>
+<span th:utext="${user.description}"></span><br/><br/>
 
 url:
 <a href="" th:href="@{https://www.baidu.com}">超链接</a>
@@ -71,7 +71,7 @@ url:
         <td th:text="${person.name}"></td>
         <td th:text="${person.age}"></td>
         <td th:text="${person.age gt 18} ? 你老了 : 你很年轻">18岁</td>
-        <td th:text="${#dates.format(user.birthday, 'yyyy-MM-dd hh:mm:ss')}"></td>
+        <td th:text="${#dates.format(person.birthday, 'yyyy-MM-dd hh:mm:ss')}"></td>
     </tr>
 </table>
 <br/>
